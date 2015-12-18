@@ -1,0 +1,39 @@
+{
+  "name": "text-meme",
+  "version": "0.0.0",
+  "description": "My sweet module",
+  "license": "MIT",
+  "repository": "beatfreaker/text-meme",
+  "author": {
+    "name": "beatfreaker",
+    "email": "radiachints1512@gmail.com",
+    "url": "beatfreaker.github.io"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "xo"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    ""
+  ],
+  "dependencies": {
+    "canvas": "^1.3.5",
+    "fs": "0.0.2",
+    "gifencoder": "^1.0.6",
+    "pinkie-promise": "^2.0.0",
+    "random-int": "^1.0.0"
+  },
+  "devDependencies": {
+    "xo": "^0.11.2"
+  },
+  "xo": {
+    "ignores": [
+      "test.js"
+    ]
+  }
+}
