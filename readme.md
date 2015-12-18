@@ -1,8 +1,8 @@
-# text-meme [![Build Status](https://travis-ci.org/beatfreaker/text-meme.svg?branch=master)](https://travis-ci.org/beatfreaker/text-meme)
+# text-meme
 
 > Generate text meme
 
-<img src="meme.gif" width="400">
+<img src="meme.gif" width="300">
 
 ## Install
 
@@ -19,7 +19,8 @@ const textMeme = require('text-meme');
 textMeme('unicorns');
 //=> 'generated text-meme > filename.gif'
 
-textMeme(input, {delay: 600, filename: 'quote', background: '#4f656d'})
+textMeme(input, {delay: 600, filename: 'quote', background: '#4f656d'});
+//=> 'generated text-meme > quote.gif'
 ```
 
 
