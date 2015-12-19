@@ -35,7 +35,6 @@ module.exports = function (text, opts) {
 		}
 
 		opts = opts || {};
-		console.log(opts.background);
 		opts.repeat = 0;
 		// 0 to repeat and 1 to not repeat
 		opts.quality = 10;
