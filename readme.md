@@ -64,7 +64,7 @@ Default: meme-randomInt
 
 expected name of the file (without file extension)
 
-##### fontszies
+##### fontsize
 
 Type: `integer`  
 Default: 30
