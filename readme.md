@@ -71,6 +71,14 @@ Default: 30
 
 font's size
 
+#### Related
+
+- [text-meme-cli](https://github.com/beatfreaker/text-meme-cli) - CLI for this module
+
+#### Note
+
+This module uses `canvas` as dependency which requires `Cairo` check how to [install](https://www.npmjs.com/package/canvas#installation)
+
 
 ## License
 

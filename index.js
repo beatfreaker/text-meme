@@ -4,6 +4,7 @@ var Canvas = require('canvas');
 var GIFEncoder = require('gifencoder');
 var randomInt = require('random-int');
 var Promise = require('pinkie-promise');
+var pathExists = require('path-exists');
 var canvasW = 320;
 var canvasH = 320;
 
@@ -28,6 +29,21 @@ var addFrame = function (encoder, canvas, word, opts) {
 	encoder.addFrame(canvas);
 };
 
+var generateFileName = function (opts) {
+	return new Promise(function(resolve, reject) {
+		var flag = true;
+		while(flag) {
+			if (opts.filename !== '' && !pathExists.sync(opts.filename)) {
+				flag = false;
+				resolve(opts);
+			} else {
+				opts.filename = 'meme-' + randomInt(100, 99999) + '.gif';
+			}
+		}
+	});
+};
+
+
 module.exports = function (text, opts) {
 	return new Promise(function (resolve, reject) {
 		if (typeof text !== 'string' || text === '') {
@@ -49,29 +65,27 @@ module.exports = function (text, opts) {
 		}
 
 		if (opts.delay === undefined) {
-			opts.delay = 500;
+			opts.delay = 600;
 		}
-
-		if (opts.filename === undefined) {
-			opts.filename = 'meme-' + randomInt(100, 999) + '.gif';
-		} else {
-			opts.filename += '.gif';
-		}
-
+		
 		if (opts.fontsize === undefined) {
 			opts.fontsize = '30px';
 		}
 
-		var canvas = new Canvas(canvasW, canvasH);
-		var ctx = canvas.getContext('2d');
-		var encoder = getEncoder(opts);
+		generateFileName(opts).then(function(opts) {
+			var canvas = new Canvas(canvasW, canvasH);
+			var ctx = canvas.getContext('2d');
+			var encoder = getEncoder(opts);
 
-		for (var i = 0; i < text.length; i++) {
-			addFrame(encoder, ctx, text[i], opts);
-			if (i === text.length - 1) {
-				encoder.finish();
-				resolve(opts.filename);
+			for (var i = 0; i < text.length; i++) {
+				addFrame(encoder, ctx, text[i], opts);
+				if (i === text.length - 1) {
+					encoder.finish();
+					resolve(opts.filename);
+				}
 			}
-		}
+		});
+
+		
 	});
 };
