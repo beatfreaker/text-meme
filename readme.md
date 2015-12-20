@@ -2,7 +2,7 @@
 
 > Generate text meme
 
-<img src="meme.gif" width="160">
+<img src="meme.gif" width="300">
 
 ## Install
 
@@ -67,7 +67,7 @@ expected name of the file (without file extension)
 ##### fontsize
 
 Type: `integer`  
-Default: 30
+Default: 50
 
 font's size
 
