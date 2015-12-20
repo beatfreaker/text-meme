@@ -77,7 +77,7 @@ font's size
 
 #### Note
 
-This module uses `canvas` as dependency which requires `Cairo` check how to [install](https://www.npmjs.com/package/canvas#installation)
+This module uses [canvas](https://www.npmjs.com/package/canvas) module as dependency which requires `Cairo` check [here](https://www.npmjs.com/package/canvas#installation) how to install it.
 
 
 ## License
