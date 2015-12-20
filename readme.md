@@ -39,7 +39,7 @@ Don't forget to be awesome.
 ##### delay
 
 Type: `integer`  
-Default: 600
+Default: 500
 
 frame delay
 
