@@ -5,8 +5,8 @@ var GIFEncoder = require('gifencoder');
 var randomInt = require('random-int');
 var Promise = require('pinkie-promise');
 var pathExists = require('path-exists');
-var canvasW = 320;
-var canvasH = 320;
+var canvasW = 600;
+var canvasH = 600;
 
 var getEncoder = function (opts) {
 	var encoder = new GIFEncoder(canvasW, canvasH);
@@ -30,10 +30,10 @@ var addFrame = function (encoder, canvas, word, opts) {
 };
 
 var generateFileName = function (opts) {
-	return new Promise(function(resolve, reject) {
+	return new Promise(function (resolve) {
 		var flag = true;
-		while(flag) {
-			if (opts.filename !== '' && !pathExists.sync(opts.filename)) {
+		while (flag) {
+			if (opts.filename !== undefined && !pathExists.sync(opts.filename)) {
 				flag = false;
 				resolve(opts);
 			} else {
@@ -42,7 +42,6 @@ var generateFileName = function (opts) {
 		}
 	});
 };
-
 
 module.exports = function (text, opts) {
 	return new Promise(function (resolve, reject) {
@@ -67,12 +66,12 @@ module.exports = function (text, opts) {
 		if (opts.delay === undefined) {
 			opts.delay = 600;
 		}
-		
+
 		if (opts.fontsize === undefined) {
-			opts.fontsize = '30px';
+			opts.fontsize = '50px';
 		}
 
-		generateFileName(opts).then(function(opts) {
+		generateFileName(opts).then(function (opts) {
 			var canvas = new Canvas(canvasW, canvasH);
 			var ctx = canvas.getContext('2d');
 			var encoder = getEncoder(opts);
@@ -85,7 +84,5 @@ module.exports = function (text, opts) {
 				}
 			}
 		});
-
-		
 	});
 };

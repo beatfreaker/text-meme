@@ -2,7 +2,7 @@
 
 > Generate text meme
 
-<img src="meme.gif" width="300">
+<img src="meme.gif" width="160">
 
 ## Install
 
@@ -39,7 +39,7 @@ Don't forget to be awesome.
 ##### delay
 
 Type: `integer`  
-Default: 500
+Default: 600
 
 frame delay
 
