@@ -71,7 +71,7 @@ Default: 50
 
 Font's size
 
-#### imagesize
+##### imagesize
 
 Type: `integer`
 Default: 600
