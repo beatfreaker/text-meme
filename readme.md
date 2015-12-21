@@ -41,35 +41,42 @@ Don't forget to be awesome.
 Type: `integer`  
 Default: 500
 
-frame delay
+Frame delay
 
 ##### background
 
 Type: `string`  
 Default: #000000
 
-image's background color in hex
+Image's background color in hex
 
 ##### fontcolor
 
 Type: `string`  
 Default: #ffffff
 
-font's color in hex
+Font's color in hex
 
 ##### filename
 
 Type: `string`  
 Default: meme-randomInt
 
-expected name of the file (without file extension)
+Expected name of the file (without file extension)
 
 ##### fontsize
 
 Type: `integer`  
 Default: 50
 
-font's size
+Font's size
+
+#### imagesize
+
+Type: `integer`
+Default: 600
+
+Image's size in px (Height = Width = imagesize)
 
 #### Related
 

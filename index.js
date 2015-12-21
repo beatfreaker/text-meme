@@ -71,6 +71,11 @@ module.exports = function (text, opts) {
 			opts.fontsize = '50px';
 		}
 
+		if (opts.imagesize !== undefined) {
+			canvasW = opts.imagesize;
+			canvasH = opts.imagesize;
+		}
+
 		generateFileName(opts).then(function (opts) {
 			var canvas = new Canvas(canvasW, canvasH);
 			var ctx = canvas.getContext('2d');
