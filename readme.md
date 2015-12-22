@@ -1,4 +1,4 @@
-# text-meme
+# text-meme [![Build Status](https://travis-ci.org/beatfreaker/text-meme.svg?branch=master)](https://travis-ci.org/beatfreaker/text-meme)
 
 > Generate text meme
 
@@ -19,7 +19,7 @@ const textMeme = require('text-meme');
 textMeme('unicorns');
 //=> 'generated text-meme > filename.gif'
 
-textMeme(input, {delay: 600, filename: 'quote', background: '#4f656d'});
+textMeme(input, {delay: 600, filename: 'quote.gif', background: '#4f656d'});
 //=> 'generated text-meme > quote.gif'
 ```
 
@@ -62,7 +62,7 @@ Font's color in hex
 Type: `string`  
 Default: meme-randomInt
 
-Expected name of the file (without file extension)
+Expected name of the file (with file extension - .gif)
 
 ##### fontsize
 
