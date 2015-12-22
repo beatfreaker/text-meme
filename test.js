@@ -1,12 +1,9 @@
-var meme = require('./');
+import test from 'ava';
+import pathExists from 'path-exists';
+import fn from './';
 
-meme('Don\'t forget to be awesome', {delay: 600, background: '#1d2628'}).then(function(filename) {
-    console.log('generated text-meme > ' + filename);
-}, function(err) {
-    console.log('error');
+test('meme', t => {
+	fn('Don\t forget to be awesome', {delay: 500, background: '#1d2628', filename: 'out.gif'});
+
+	t.true(pathExists.sync('out.gif'));
 });
-
-
-
-
-
