@@ -41,42 +41,49 @@ Don't forget to be awesome.
 Type: `integer`  
 Default: 500
 
-Frame delay
+Frame delay.
 
 ##### background
 
 Type: `string`  
 Default: #000000
 
-Image's background color in hex
+Image's background color in hex.
 
 ##### fontcolor
 
 Type: `string`  
 Default: #ffffff
 
-Font's color in hex
+Font's color in hex.
 
 ##### filename
 
 Type: `string`  
 Default: meme-randomInt
 
-Expected name of the file (with file extension - .gif)
+Expected name of the file (with file extension - .gif).
 
 ##### fontsize
 
 Type: `integer`  
 Default: 50
 
-Font's size
+Font's size.
 
 ##### imagesize
 
 Type: `integer`
 Default: 600
 
-Image's size in px (Height = Width = imagesize)
+Image's size in px (Height = Width = imagesize).
+
+##### dest
+
+Type: `string`
+Default: ''
+
+Destination path where you want image to be generated.
 
 #### Related
 

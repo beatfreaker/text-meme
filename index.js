@@ -5,12 +5,13 @@ var GIFEncoder = require('gifencoder');
 var randomInt = require('random-int');
 var pathExists = require('path-exists');
 var objectAssign = require('object-assign');
+var path = require('path');
 var canvasW = 600;
 var canvasH = 600;
 
 var getEncoder = function (opts) {
 	var encoder = new GIFEncoder(canvasW, canvasH);
-	encoder.createReadStream().pipe(fs.createWriteStream(opts.filename));
+	encoder.createReadStream().pipe(fs.createWriteStream(path.join(opts.dest, opts.filename)));
 	encoder.start();
 	encoder.setRepeat(opts.repeat);
 	encoder.setDelay(opts.delay);
@@ -48,10 +49,16 @@ module.exports = function (text, opts) {
 		fontcolor: '#FFFFFF',
 		delay: 600,
 		fontsize: '50px',
-		filename: generateFileName()
+		filename: generateFileName(),
+		dest: ''
 	}, opts, {repeat: 1, quality: 10});
 
 	text = text.split(' ');
+
+	console.log(opts.dest);
+	if (opts.dest !== '' && !pathExists.sync(opts.dest)) {
+		throw new Error('Please provide valid path');
+	}
 
 	if (opts.imagesize !== undefined) {
 		canvasW = opts.imagesize;
