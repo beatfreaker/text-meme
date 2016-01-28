@@ -6,6 +6,9 @@ var randomInt = require('random-int');
 var pathExists = require('path-exists');
 var objectAssign = require('object-assign');
 var path = require('path');
+var twemoji = require('twemoji');
+var Promise = require('pinkie-promise');
+var get = require('simple-get');
 var canvasW = 600;
 var canvasH = 600;
 
@@ -19,15 +22,46 @@ var getEncoder = function (opts) {
 	return encoder;
 };
 
-var addFrame = function (encoder, canvas, word, opts) {
-	canvas.fillStyle = opts.background;
-	canvas.fillRect(0, 0, canvasW, canvasH);
-	canvas.font = opts.fontsize + ' Impact';
-	canvas.textAlign = 'center';
-	canvas.textBaseline = 'middle';
-	canvas.fillStyle = opts.fontcolor;
-	canvas.fillText(word, canvasW / 2, canvasH / 2);
-	encoder.addFrame(canvas);
+var addImage = function (encoder, ctx, img) {
+	return new Promise(function (resolve, reject) {
+		var rex = /<img.*?src="(.*?)"/; // http://stackoverflow.com/questions/12393671/substring-regex-to-get-a-src-value-held-in-a-string
+		get.concat('http:' + rex.exec(img)[1], function (err, src) {
+			if (err) {
+				reject(err);
+			}
+			var img = new Canvas.Image();
+			img.src = src;
+			ctx.drawImage(img, (canvasW / 2) - 18, (canvasH / 2) - 18); // to put image in center => canvas/2 - image/2
+			encoder.addFrame(ctx);
+			resolve();
+		});
+	});
+};
+
+var fillText = function (encoder, ctx, word) {
+	ctx.fillText(word, canvasW / 2, canvasH / 2);
+	encoder.addFrame(ctx);
+};
+
+var addFrame = function (encoder, ctx, word, opts) {
+	return new Promise(function (resolve) {
+		ctx.fillStyle = opts.background;
+		ctx.fillRect(0, 0, opts.canvasW, opts.canvasH);
+		ctx.font = opts.fontsize + ' Impact';
+		ctx.textAlign = 'center';
+		ctx.textBaseline = 'middle';
+		ctx.fillStyle = opts.fontcolor;
+
+		var emoji = twemoji.parse(word);
+		if (emoji.split(' ').length > 1) {
+			addImage(encoder, ctx, emoji, opts).then(function () {
+				resolve();
+			});
+		} else {
+			fillText(encoder, ctx, word, opts);
+			resolve();
+		}
+	});
 };
 
 var generateFileName = function () {
@@ -39,9 +73,17 @@ var generateFileName = function () {
 	return filename;
 };
 
+var processText = function (encoder, canvas, text, opts) {
+	return text.reduce(function (promise, word) {
+		return promise.then(function () {
+			return addFrame(encoder, canvas, word, opts);
+		});
+	}, Promise.resolve());
+};
+
 module.exports = function (text, opts) {
 	if (typeof text !== 'string' || text === '') {
-		throw new Error('Expected some string value');
+		return Promise.reject(new Error('Expected some string value'));
 	}
 
 	opts = objectAssign({
@@ -51,29 +93,29 @@ module.exports = function (text, opts) {
 		fontsize: '50px',
 		filename: generateFileName(),
 		dest: ''
-	}, opts, {repeat: 1, quality: 10});
+	}, opts, {repeat: 0, quality: 10});
 
 	text = text.split(' ');
 
 	console.log(opts.dest);
 	if (opts.dest !== '' && !pathExists.sync(opts.dest)) {
-		throw new Error('Please provide valid path');
+		return Promise.reject(new Error('Please provide valid path'));
 	}
 
 	if (opts.imagesize !== undefined) {
 		canvasW = opts.imagesize;
 		canvasH = opts.imagesize;
 	}
-
+	opts.canvasW = canvasW;
+	opts.canvasH = canvasH;
 	var canvas = new Canvas(canvasW, canvasH);
 	var ctx = canvas.getContext('2d');
 	var encoder = getEncoder(opts);
 
-	for (var i = 0; i < text.length; i++) {
-		addFrame(encoder, ctx, text[i], opts);
-	}
-
-	encoder.finish();
-
-	return opts.filename;
+	return new Promise(function (resolve) {
+		processText(encoder, ctx, text, opts).then(function () {
+			encoder.finish();
+			resolve(opts.filename);
+		});
+	});
 };

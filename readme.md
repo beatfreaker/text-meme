@@ -3,6 +3,7 @@
 > Generate text meme
 
 <img src="meme.gif" width="300">
+<img src="emoji.gif" width="300">
 
 ## Install
 
@@ -16,10 +17,14 @@ $ npm install --save text-meme
 ```js
 const textMeme = require('text-meme');
 
-textMeme('unicorns');
+textMeme('unicorns ❤️').then(function (filename) {
+    console.log(filename);
+});
 //=> 'generated text-meme > filename.gif'
 
-textMeme(input, {delay: 600, filename: 'quote.gif', background: '#4f656d'});
+textMeme(input, {delay: 600, filename: 'quote.gif', background: '#4f656d'}).then(function (filename) {
+    console.log(filename);
+});
 //=> 'generated text-meme > quote.gif'
 ```
 

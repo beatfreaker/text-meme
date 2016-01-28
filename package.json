@@ -1,6 +1,6 @@
 {
   "name": "text-meme",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Generate text meme",
   "license": "MIT",
   "repository": "beatfreaker/text-meme",
@@ -32,7 +32,10 @@
     "object-assign": "^4.0.1",
     "path": "^0.12.7",
     "path-exists": "^2.1.0",
-    "random-int": "^1.0.0"
+    "pinkie-promise": "^2.0.0",
+    "random-int": "^1.0.0",
+    "simple-get": "^1.4.3",
+    "twemoji": "^1.4.1"
   },
   "devDependencies": {
     "ava": "^0.8.0",
